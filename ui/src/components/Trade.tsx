@@ -86,6 +86,7 @@ const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
 
   return (
     <>
+      <div className='hidden'>
       <div className="trade">
         <h3>Want: Choose up to 3 items</h3>
         <div className="row-center">
@@ -127,10 +128,11 @@ const Trade = ({ makeOffer, istPurse, walletConnected }: TradeProps) => {
           />
         </div>
       </div>
+  </div>
       <div>
         {walletConnected && (
-          <button onClick={() => makeOffer(giveValue, choices)}>
-            Make an Offer
+          <button onClick={() => makeOffer(giveValue, choices)} className="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 transition duration-200 mt-4">
+            Pay
           </button>
         )}
       </div>

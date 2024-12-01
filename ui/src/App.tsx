@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.css';
+// import './App.css';
 import {
   makeAgoricChainStorageWatcher,
   AgoricChainStoragePathKind as Kind,
@@ -15,6 +16,8 @@ import { makeCopyBag } from '@agoric/store';
 import { Logos } from './components/Logos';
 import { Inventory } from './components/Inventory';
 import { Trade } from './components/Trade';
+import Sell from './components/Sell';
+import Buyer from './components/Buyer';
 
 const { entries, fromEntries } = Object;
 
@@ -143,28 +146,56 @@ function App() {
   };
 
   return (
-    <>
-      <Logos />
-      <h1>Items Listed on Offer Up</h1>
-
-      <div className="card">
-        <Trade
-          makeOffer={makeOffer}
-          istPurse={istPurse as Purse}
-          walletConnected={!!wallet}
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="w-full">
+              <Buyer  makeOffer={makeOffer}
+                istPurse={istPurse as Purse}
+                walletConnected={!!wallet} />
+              <Trade
+                makeOffer={makeOffer}
+                istPurse={istPurse as Purse}
+                walletConnected={!!wallet}
+              />
+              {/* <Sell /> */}
+              
+              <hr />
+              {wallet && istPurse ? (
+                // <Inventory
+                //   address={wallet.address}
+                //   istPurse={istPurse}
+                //   itemsPurse={itemsPurse as Purse}
+                // />
+              <></>
+              ) : (
+                <button onClick={tryConnectWallet} className='w-full py-2 px-4 bg-green-500  text-white rounded hover:bg-green-600 transition duration-200'>Connect Wallet</button>
+              )}
+            </div>
+          }
         />
-        <hr />
-        {wallet && istPurse ? (
-          <Inventory
-            address={wallet.address}
-            istPurse={istPurse}
-            itemsPurse={itemsPurse as Purse}
-          />
-        ) : (
-          <button onClick={tryConnectWallet}>Connect Wallet</button>
-        )}
-      </div>
-    </>
+        <Route path="/sell" element={<Sell />} />
+        <Route path="/buy" element={<Buyer  makeOffer={makeOffer}
+                istPurse={istPurse as Purse}
+                walletConnected={!!wallet} />} />
+        <Route
+          path="/inventory"
+          element={
+            wallet && istPurse ? (
+              <Inventory
+                address={wallet.address}
+                istPurse={istPurse}
+                itemsPurse={itemsPurse as Purse}
+              />
+            ) : (
+              <button onClick={tryConnectWallet} className='w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 transition duration-200'>Connect Wallet</button>
+            )
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

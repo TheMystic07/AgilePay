@@ -53,15 +53,18 @@
     "runWaitForBlocks": "cd contract && yarn make:waitForBlocks"
   },
   "dependencies": {
+    "@agoric/orchestration": "0.2.0-u18.2",
     "eslint": "^8.57.0"
   },
   "devDependencies": {
     "@agoric/synpress": "^3.8.1",
+    "autoprefixer": "^10.4.20",
     "eslint-config-turbo": "^1.13.0",
     "eslint-plugin-chai-friendly": "^0.7.4",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-testing-library": "^6.2.0",
     "eslint-plugin-ui-testing": "^2.0.1",
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "tailwindcss": "^3.4.15"
   }
 }
